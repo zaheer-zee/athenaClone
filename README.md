@@ -128,6 +128,24 @@ npm start
 
 ---
 
+## 📦 Packaging & Building DMG Installer
+
+To package AthenaClone into a standalone macOS disk image (`.dmg`) for distribution or submission:
+
+```bash
+npm run dist
+```
+
+This command automatically:
+1. Builds the production-ready React client with relative assets (`dist/`).
+2. Bundles the Electron main process and assets into `AthenaClone.app`.
+3. Creates a mountable installer `.dmg` in the `dist-electron/` folder:
+   ```
+   dist-electron/AthenaClone-1.0.0-arm64.dmg
+   ```
+
+---
+
 ## 🔮 Roadmap & Upcoming Features
 
 - [ ] **AI-Powered Gaze & Face Detection**: Integrate MediaPipe/TensorFlow.js to alert on head turns, looking away, or multiple faces in frame.

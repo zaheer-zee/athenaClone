@@ -4,9 +4,40 @@
   "description": "Exam Proctoring App",
   "main": "index.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build:frontend": "npm --prefix frontend run build",
+    "dist": "npm run build:frontend && electron-builder --mac dmg"
+  },
+  "build": {
+    "appId": "com.athenaclone.proctor",
+    "productName": "AthenaClone",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "index.js",
+      "package.json",
+      "frontend/dist/**/*"
+    ],
+    "mac": {
+      "category": "public.app-category.education",
+      "target": [
+        "dmg"
+      ],
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false,
+      "identity": null,
+      "extendInfo": {
+        "NSCameraUsageDescription": "AthenaClone requires camera access to monitor online exams and verify candidate identity.",
+        "NSMicrophoneUsageDescription": "AthenaClone requires microphone access to monitor exam room acoustics."
+      }
+    },
+    "dmg": {
+      "title": "AthenaClone Installer"
+    }
   },
   "devDependencies": {
-    "electron": "^44.4.1"
+    "electron": "^44.4.1",
+    "electron-builder": "^26.18.0"
   }
 }

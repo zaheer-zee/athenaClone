@@ -1,4 +1,6 @@
 const { app, BrowserWindow, session, desktopCapturer, ipcMain, dialog } = require('electron');
+const path = require('path');
+const fs = require('fs');
 
 let win;
 
@@ -12,8 +14,17 @@ function createWindow() {
     }
   });
 
-  // Load the Vite React development server
-  win.loadURL('http://localhost:5173');
+  const distIndexPath = path.join(__dirname, 'frontend', 'dist', 'index.html');
+
+  if (app.isPackaged) {
+    win.loadFile(distIndexPath);
+  } else {
+    win.loadURL('http://localhost:5173').catch(() => {
+      if (fs.existsSync(distIndexPath)) {
+        win.loadFile(distIndexPath);
+      }
+    });
+  }
 
   // Handle permission requests for camera and microphone
   session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => {
