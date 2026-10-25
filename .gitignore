@@ -8,6 +8,7 @@ dist-ssr/
 frontend/dist/
 dist-electron/
 release/
+*.zip
 
 # Logs
 logs/
